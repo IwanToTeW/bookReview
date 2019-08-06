@@ -1,0 +1,8 @@
+    {{ form_start(form, {
+        'attr': {'action': path('add_post')}
+    }) }}
+
+    {{ form_widget(form.review, { 'attr': {'class': 'review'} }) }}
+    {{ form_widget(form.post, { 'attr': {'class': 'post'} }) }}
+    {{ form_widget(form.bookId, { 'attr': {'class': 'bookId'} }) }}
+    {{ form_end(form) }}

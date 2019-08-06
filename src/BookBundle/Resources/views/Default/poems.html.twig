@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Books{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <div id="header">
+        {% include('header.html.twig') %}
+    </div>
+</head>
+
+<body>
+{% if poems is null %}
+    <p><b> No poems have been found. </b></p>
+
+{% else %}
+    {% for poem in poems %}
+        <div id="poemContainer">
+            <ul class="poemProperties">
+                <li><b> Poem title: </b>{{ poem.title }}</li>
+                <li><b> Poet : </b>{{ poem.author }}</li>
+                <li><b> Poem : </b>{{ poem.content }}</li>
+            </ul>
+        </div>
+    {% endfor %}
+
+{% endif %}
+{#<div class="navigation">#}
+{#    {{ knp_pagination_render(poems) }}#}
+{#</div>#}
+</body>
+</html>

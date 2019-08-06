@@ -1,0 +1,15 @@
+{% extends'base.html.twig' %}
+
+{% block body %}
+    <h2> Fill in the form bellow</h2>
+    {{ form_start(form) }}
+
+    {{ form_row(form.image) }}
+
+    {{ form_end(form) }}
+
+    <div>
+        <h2 > <a href="{{ path('autoload_book') }}">Or find book by ISBN</a> </h2>
+    </div>
+{% endblock %}
+

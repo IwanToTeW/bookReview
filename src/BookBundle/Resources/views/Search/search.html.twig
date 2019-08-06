@@ -1,0 +1,15 @@
+{{ form_start(form, {
+    'attr': {'class': 'navbar-form navbar-center', 'action': path('search')}
+}) }}
+
+    {{ form_widget(form.query, {
+        'attr': { 'class': 'form-control search-query'}
+    }) }}
+    {{ form_widget(form.searchBy, {
+        'attr': { 'class': 'form-control search-query'}
+    }) }}
+    {{ form_widget(form.search, {
+        'attr': { 'class': 'form-control search-query'}
+    }) }}
+
+{{ form_end(form) }}

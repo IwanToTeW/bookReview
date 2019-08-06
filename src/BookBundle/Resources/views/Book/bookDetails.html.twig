@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}{{ book.title }}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <div id="header">
+        {% include('header.html.twig') %}
+    </div>
+</head>
+<body>
+    <div class="bookContainer">
+        <img src="{{ asset('images/' ~ book.image) }}" width="300">
+        <ul class="bookProperties">
+            <li> <h3> {{ book.title }}</h3></li>
+            <li> by <b> {{ book.author }}</b></li>
+            <li> <b> Summary : </b></li>
+            <li>{{ book.summary }}</li>
+            <li><b>Rating </b> {{ book.rating }}</li>
+        </ul>
+
+{#Hide write post form if user is not authenitcated#}
+    </div>
+    {% if is_granted('ROLE_USER') %}
+        {% if postWritten %}
+            <div class="postMessage">
+                <h3>You have already wrote a review for this book</h3>
+            </div>
+        {% else %}
+            <div class="postForm">
+                <h4> Write your review below</h4>
+
+                {{ render(controller(
+                    'PostBundle:Post:WritePost', {'bookId' :book.id})) }}
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="postMessage">
+        <h3>Read reviews for this book</h3>
+    </div>
+    {% for review in reviews %}
+    <div class="bookReview">
+        <div class="bookReviewText">
+            <ul>
+                <li>{{ review.author }}</li>
+                <li>Posted at {{ review.postedAt|date('Y-m-d H:i:s') }}</li>
+                <li>
+                    {{ review.helpful }} people found this review helpful.
+                </li>
+                {% if is_granted('ROLE_USER')  %}
+                <li>
+                    <a href="{{ path('update_helpful', {'postId' :review.id , 'bookId' :book.id} ) }}">
+                        <button  class="w3-button w3-circle w3-black">+
+                        </button>
+                    </a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_MODERATOR')%}
+                    <li>
+                        <a href="{{ path('delete_post', {'postId' :review.id , 'bookId' :book.id} ) }}">
+                            <button class="w3-button w3-circle w3-black">X
+                            </button >
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <p class="postMessage">
+                {{  review.reviewText }}
+            </p>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</body>
+</html>

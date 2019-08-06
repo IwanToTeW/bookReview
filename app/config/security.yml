@@ -1,0 +1,47 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    encoders:
+        UserBundle\Entity\User: bcrypt
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
+            anonymous:  false
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            logout: ~
+            # activate different ways to authenticate
+
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+            #http_basic: ~
+
+            # https://symfony.com/doc/current/security/form_login_setup.html
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
+
+            remember_me:
+                secret: '%secret%'
+
+    access_control:
+        # require ROLE_ADMIN
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/addRole, roles: ROLE_ADMIN }
+        - { path: ^/autoload, roles: ROLE_ADMIN }
+        - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }

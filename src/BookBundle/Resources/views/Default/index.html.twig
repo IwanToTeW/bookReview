@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Books{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <div id="header">
+        {% include('header.html.twig') %}
+    </div>
+</head>
+
+<body>
+{% if outSource %}
+<p> <b> Nothing has been found in our database but here are some suggestions from the web :</b></p>
+{% endif %}
+{% if books is empty %}
+    <p> <b> No matches found both in our database and in the web. </b></p>
+
+{% else %}
+    {% for book in books %}
+        <div class="bookContainer" >
+        {% if book.id is not null %}
+            <a href="{{ path('book_details', {'id' : book.id} ) }}">
+
+                <img src="{{ asset('images/'~ book.image ) }}" width="300">
+                <ul class="bookProperties">
+                    <li>{{ book.title }}</li>
+                    <li>{{ book.author }}</li>
+                </ul>
+            </a>
+        {% else %}
+            <a>
+                <img src="{{ asset('images/'~ book.image ) }}" width="300">
+                <ul class="bookProperties">
+                    <li><b>Title : </b>{{ book.title }}</li>
+                    <li><b>Author : </b>{{ book.author }}</li>
+                    <li><b>Rating : </b> {{ book.rating }}</li>
+                    <li><b>Page Count : </b>{{ book.pageCount }}</li>
+                    <li> <b>Summary : </b></li>
+                    <li>{{ book.summary }}</li>
+                </ul>
+            </a>
+
+        {% endif %}
+    </div>
+    {% endfor %}
+{% endif %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(books) }}
+    </div>
+</body>
+</html>

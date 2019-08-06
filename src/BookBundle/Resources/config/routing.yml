@@ -1,0 +1,19 @@
+book_homepage:
+    path:     /books
+    defaults: { _controller: BookBundle:Book:index }
+
+search:
+    path:     /search
+    defaults: {_controller: BookBundle:Search:handleSearch }
+
+book_details:
+    path:   /book/{id}
+    defaults: {_controller: BookBundle:Book:click }
+
+admin_page:
+    path:   /admin
+    defaults: { _controller: BookBundle:Book:addBook }
+
+autoload_book:
+    path:   /autoload
+    defaults: { _controller: BookBundle:Book:autoloadBook }

@@ -1,0 +1,5 @@
+api:
+  type: rest
+  resource: PostBundle\Controller\PostAPIController
+  name_prefix: api_
+  prefix: /

@@ -1,0 +1,61 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+        $('#menuItems a').click(function(e) {
+            e.preventDefault();
+            $('#menuItems a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $(window).on('scroll', function(){
+            if ($(window).scrollTop()){
+                $('nav').addClass('black');
+            }
+            else
+            {
+                $('nav').removeClass('black');
+            }
+        });
+    </script>
+{% endblock %}
+<html>
+<head>
+    <title>Book Review</title>
+</head>
+<body>
+<nav>
+    <div class="logo">
+        <img src="{{ asset('images/logo.png') }}" />
+
+    </div>
+    <div id="menuItems">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="{{ path('book_homepage') }}">Books</a></li>
+            {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('admin_page') }}">Add a book</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('add_role') }}">Add role</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') == false    %}
+            <li><a href="{{ path('fos_user_registration_register') }}">Register</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+                <li> <a href="{{ path('fos_user_security_logout') }}" >Logout</a> </li>
+            {% else %}
+                <li> <a href="{{ path('fos_user_security_login') }}" >Login</a> </li>
+            {% endif %}
+
+        </ul>
+    </div>
+    <div class="searchForm">
+        {{ render(controller(
+            'BookBundle:Search:SearchBar'
+        )) }}
+    </div>
+
+</nav>
+</body>
+</html>

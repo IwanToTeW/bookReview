@@ -1,0 +1,36 @@
+{% extends'base.html.twig' %}
+
+{% block body %}
+    <h2> Search book by ISBN</h2>
+    {{ form_start(form) }}
+
+    {{ form_end(form) }}
+    {% if book is defined and book is not null %}
+
+        <div class="bookContainer">
+            <img src="{{ asset('images/' ~ book.image) }}" width="300">
+            <ul class="bookProperties">
+                <li><h3> {{ book.title }}</h3></li>
+                <li><b>Author: </b> {{ book.author }}</li>
+                <li><b>Category: </b> {{ book.category }}</li>
+                <li><b>Summary :</b></li>
+                <li>{{ book.summary }}</li>
+                <li><b>Rating: </b> {{ book.rating }}</li>
+                <li><b>Page count: </b>{{ book.pageCount }}</li>
+            </ul>
+        </div>
+
+        {% if successful == false %}
+            <div><h2> The book already exist in our database</h2></div>
+        {% endif %}
+
+        {% if successful %}
+            <div><h2> The book was added in our database</h2></div>
+        {% endif %}
+    {% else %}
+        <h2>No book with this ISBN has been found</h2>
+    {% endif %}
+
+
+{% endblock %}
+

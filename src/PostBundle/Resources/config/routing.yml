@@ -1,0 +1,15 @@
+write_post:
+    path:   /writePost{bookId}
+    defaults: {_controller: PostBundle:Post:writePost }
+
+add_post:
+    path:   /addPost
+    defaults: {_controller: PostBundle:Post:addPost}
+
+update_heplful:
+    path:   /updateHeplful{postId}{bookId}
+    defaults: {_controller: PostBundle:Post:updateHeplful}
+
+delete_post:
+    path:   /deletePost{postId}{bookId}
+    defaults: {_controller: PostBundle:Post:deletePost}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <div id="header">
+        {% include('header.html.twig') %}
+    </div>
+</head>
+<body>
+<h1> Welcome to my website here you will find reviews for your favourite titles</h1>
+
+{% if poem is not defined %}
+
+{% else %}
+<div id="poemContainer">
+    <h2> Poem of the day </h2>
+    <ul class="poemProperties">
+        <li><b> Poem title: </b>{{ poem.title }}</li>
+        <li><b> Poet : </b>{{ poem.author }}</li>
+        <li><b> Poem : </b>{{ poem.content }}</li>
+    </ul>
+</div>
+{% endif %}
+
+</body>
